@@ -53,16 +53,11 @@ const LoanCard = ({ loan }) => {
             <div className="text-muted small">Progress</div>
             <div className="small">{Math.round(progressPercentage)}%</div>
           </div>
-          <div className="progress" style={{ height: '8px' }}>
-            <div 
-              className="progress-bar bg-success" 
-              role="progressbar" 
-              style={{ width: `${progressPercentage}%` }} 
-              aria-valuenow={progressPercentage} 
-              aria-valuemin="0" 
-              aria-valuemax="100"
-            ></div>
-          </div>
+          <progress 
+            className="w-100"
+            value={progressPercentage} 
+            max="100"
+          ></progress>
         </div>
         
         <div className="loan-details mb-3">
@@ -91,13 +86,18 @@ const LoanCard = ({ loan }) => {
         </div>
         
         <div className="loan-actions">
-          <Link to={`/loans/${loan.id}`} className="btn btn-primary btn-sm w-100">
+          <Link to={`/loans/${loan.id}`} className="btn btn-primary btn-sm w-100 mb-2">
             View Details
           </Link>
           {loan.status === 'Active' && (
-            <Link to={`/loans/${loan.id}`} className="btn btn-outline-primary btn-sm w-100 mt-2">
-              Make Payment
-            </Link>
+            <div className="fintech-actions d-flex gap-2">
+              <Link to={`/loans/${loan.id}?action=repay`} className="btn btn-success btn-sm flex-grow-1">
+                Repay Loan
+              </Link>
+              <Link to={`/loans/${loan.id}?action=topup`} className="btn btn-outline-primary btn-sm flex-grow-1">
+                Top-up
+              </Link>
+            </div>
           )}
         </div>
       </div>
